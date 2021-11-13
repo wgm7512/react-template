@@ -19,13 +19,19 @@
     "react-hooks"
   ],
   "extends": [
-    "eslint:recommended", 
+    "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
     "plugin:react-hooks/recommended"
   ],
   "rules": {
-    "semi": ["error", "always"],
-    "quotes": ["error", "double"]
+    "semi": [
+      "error",
+      "always"
+    ],
+    "quotes": [
+      "error",
+      "double"
+    ]
   }
 }

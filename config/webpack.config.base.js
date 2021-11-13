@@ -1,23 +1,23 @@
-const htmlWebpackPlugin = require('html-webpack-plugin');
+const htmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const copyWebpackPlugin = require("copy-webpack-plugin");
-const path = require('path');
+const path = require("path");
 
-const modeStr = process.env.NODE_ENV || 'development';
+const modeStr = process.env.NODE_ENV || "development";
 
 module.exports = {
   mode: modeStr,
   entry: {
-    app: './src/index.tsx',
+    app: "./src/index.tsx",
   },
   output: {
-    path: path.resolve(__dirname, '../dist'),
-    filename: '[name].bundle.js',
+    path: path.resolve(__dirname, "../dist"),
+    filename: "[name].bundle.js",
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js', '.jsx'],
+    extensions: [".tsx", ".ts", ".js", ".jsx"],
     alias: {
-      "@": path.resolve(__dirname, 'src')
+      "@": path.resolve(__dirname, "src")
     },
   },
   module: {
@@ -26,9 +26,9 @@ module.exports = {
         test: /\.(ts|tsx|js|jsx)$/,
         exclude: /(node_modules|bower_components)/,
         use: {
-          loader: 'babel-loader',
+          loader: "babel-loader",
           options: {
-            presets: ['@babel/preset-env']
+            presets: ["@babel/preset-env"]
           }
         }
       }
@@ -37,17 +37,17 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new htmlWebpackPlugin({
-      title: 'yasuo',
-      filename: 'index.html',
-      template: path.resolve(__dirname, '../public/index.html'),
+      title: "yasuo",
+      filename: "index.html",
+      template: path.resolve(__dirname, "../public/index.html"),
     }),
     new copyWebpackPlugin({
       patterns: [
         {
-          from: path.resolve(__dirname, '../public'),
-          to: path.resolve(__dirname, '../dist/public')
+          from: path.resolve(__dirname, "../public"),
+          to: path.resolve(__dirname, "../dist/public")
         },
       ],
     })
   ]
-}
+};
