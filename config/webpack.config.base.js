@@ -1,18 +1,19 @@
 const htmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const copyWebpackPlugin = require("copy-webpack-plugin");
+
+// 将 CSS 提取到单独的文件中，为每个包含 CSS 的 JS 文件创建一个 CSS 文件，并且支持 CSS 和 SourceMaps 的按需加载。
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
 const path = require("path");
 
-const modeStr = process.env.NODE_ENV || "development";
-
 module.exports = {
-  mode: modeStr,
   entry: {
     app: "./src/index.tsx",
   },
   output: {
     path: path.resolve(__dirname, "../dist"),
-    filename: "[name].bundle.js",
+    filename: "[name].[hash].js",
   },
   resolve: {
     extensions: [".tsx", ".ts", ".js", ".jsx"],
@@ -31,7 +32,40 @@ module.exports = {
             presets: ["@babel/preset-env"]
           }
         }
-      }
+      },
+      {
+        test: /\.css$/,
+        exclude: /(node_modules|bower_components)/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader
+          },
+          {
+            loader: "css-loader"
+          }
+        ],
+      },
+      {
+        // 只为  sass 开启模块化
+        test: /\.scss$/,
+        exclude: /(node_modules|bower_components)/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader
+          },
+          {
+            loader: "css-loader",
+            options: {
+              modules: {
+                localIdentName: '[local]'
+              }
+            }
+          },
+          {
+            loader: "sass-loader"
+          }
+        ],
+      },
     ]
   },
   plugins: [
@@ -48,6 +82,7 @@ module.exports = {
           to: path.resolve(__dirname, "../dist/public")
         },
       ],
-    })
+    }),
+    new MiniCssExtractPlugin(),
   ]
 };
