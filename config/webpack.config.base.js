@@ -13,7 +13,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, "../dist"),
-    filename: "[name].[hash].js",
+    filename: "[name].[chunkhash].js",
   },
   resolve: {
     extensions: [".tsx", ".ts", ".js", ".jsx"],
@@ -79,10 +79,15 @@ module.exports = {
       patterns: [
         {
           from: path.resolve(__dirname, "../public"),
-          to: path.resolve(__dirname, "../dist/public")
+          to: path.resolve(__dirname, "../dist/public"),
+          globOptions: {
+            ignore: [path.resolve(__dirname, '../public/index.html')]
+          }
         },
       ],
     }),
-    new MiniCssExtractPlugin(),
+    new MiniCssExtractPlugin({
+      filename: "[name].[chunkhash].css",
+    }),
   ]
 };
