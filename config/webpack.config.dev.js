@@ -15,7 +15,10 @@ const webpackConfigDev = {
     port,
     host,
     hot: true,
-    open: true
+    open: true,
+    historyApiFallback:{
+      disableDotRule: true
+    }
   },
   plugins: [
     new FriendlyErrorsWebpackPlugin({
