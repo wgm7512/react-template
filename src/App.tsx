@@ -1,10 +1,15 @@
-import React, { FC } from "react";
+import React from "react";
+import { useRoutes } from "react-router-dom";
+import routes from "./router/routes";
 import styles from "./app.scss";
 
-const App: FC = () => {
-  return (
-    <div className={styles["app"]}>App</div>
-  );
-};
 
-export default App;
+export default function App() {
+  return (
+    <div className={styles["app"]}>
+      {
+        useRoutes(routes)
+      }
+    </div>
+  );
+}

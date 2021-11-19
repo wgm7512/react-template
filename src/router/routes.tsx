@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, RouteObject, useRoutes } from "react-router-dom";
+import { RouteObject } from "react-router-dom";
 import Home from "../home/Home";
 import Goods from "../goods/Goods";
 import Customer from "../customer/Customer";
@@ -7,8 +7,7 @@ import NotFound from "../not-found/NotFound";
 import GoodsDetail from "../goods/goods-detail/GoodsDetail";
 import GoodsList from "../goods/goods-list/GoodsList";
 
-export default function Router() {
-  const routerConfig: RouteObject[] = [
+  const routes: RouteObject[] = [
     {
       path: "/",
       element: <Home />,
@@ -33,10 +32,4 @@ export default function Router() {
     }
   ];
 
-  const element = useRoutes(routerConfig);
-  return (
-    <BrowserRouter>
-      {element}
-    </BrowserRouter>
-  );
-}
+export default routes;
